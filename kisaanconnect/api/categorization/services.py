@@ -29,5 +29,14 @@ def getSubcategories(categoryid):
         jsonout.append(d)
     return jsonout
 
-
-    
+def addCategories(name,description):
+	category = models.Category(name = name, description = description)
+	category.save()
+	return 1;
+def addSubCategories(name,description,categoryid):
+	category = models.Category.objects.filter(id=categoryid)
+	if len(category)==0:
+		return -1
+	subcategory = models.Subcategory(name = name, description = description, category = category[0])
+	subcategories.save()
+	return 1

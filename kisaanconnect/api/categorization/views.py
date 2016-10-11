@@ -33,3 +33,26 @@ def getsubcategories(request):
     else:
         return JsonResponse({'status':'err', 'message': 'Bad Request'})
 
+def addcategories(request):
+	if request.method == 'POST':
+		result = 0
+		try:
+			jsonin = json.loads(request.body)
+			result = services.addCategories(json['name'],json['description'])
+		except:
+			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
+		if result ==1 :
+			return JsonResponse({'status':'ok', 'message':'Successfully added category'})
+def addsubcategories(request):
+	if request.method == 'POST':
+		result = 0
+		try:
+			jsonin = json.loads(request.body)
+			result = services.addSubCategories(json['name'],json['description'],json['categoryid'])
+		except:
+			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
+		if result ==1 :
+			return JsonResponse({'status':'ok', 'message':'Successfully added category'})
+		elif result == -1:
+			return JsonResponse({'status':'err','message':'Category id given is invalid'})
+
