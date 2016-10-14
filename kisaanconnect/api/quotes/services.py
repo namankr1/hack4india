@@ -3,6 +3,7 @@ from userprofile import services as userservices
 from categorization import services as catservices
 from categorization import models
 from django.db.models import Q
+import operator
 
 def addQuote(phone,subcategoryId,type,quantity,price,description=None):
     if len(phone) !=10:
@@ -113,12 +114,20 @@ def searchQuotes(phone,subcategoryId):
     lat1 = profileobj.location.latitude
     lon1 = profileobj.location.longitude
     quoteobj = models.Quote.filter(Q(subcategory=subcategoryobj) & ~Q(profile=profileobj))
+    jsonout=[]
     for q in quoteobj:
+        d={}
         lat2=q.profile.location.latitude
         lon2 = q.profile.location.longitude
         dis=distance(lat1,lon1,lat2,lon2)
         ratingobj=models.Rating.filter(profile=q.profile,subcategory=subcategoryobj)
         rating=ratingobj[0].rating
+        d['quote']=getQuote(q.id)
+        d['rating']=rating
+        d['distance']=dis
+        jsonout.append(d)
+    jsonout.sort(key=operator.itemgetter('distance'))
+    return jsonout
         
     
         
