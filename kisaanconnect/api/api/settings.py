@@ -25,7 +25,7 @@ SECRET_KEY = '8c)+!&xe1_v%f6x$c3ufeln8b*@2#gr0b--$ml=mobstq_%461'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kisaanconnect.herokuapp.com','localhost']
 
 
 # Application definition
@@ -73,16 +73,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'dfpkshfjpcb1g6',
+        # 'USER': 'cfyunlevivgfzu',
+        # 'PASSWORD': 'Xymtr3Wm7ohiHe1MoyXyCCTZsy',
+        # 'HOST': 'ec2-54-163-245-3.compute-1.amazonaws.com',
+        # 'PORT': '5432',
+    # }
+# }
 
 
 # Password validation
