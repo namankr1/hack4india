@@ -23,6 +23,7 @@ def getsubcategories(request):
         result=0
         try:
             jsonin=json.loads(request.body)
+            print jsonin['categoryid']
             result = services.getSubcategories(jsonin['categoryid'])
         except Exception:
             return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
@@ -38,7 +39,7 @@ def addcategories(request):
 		result = 0
 		try:
 			jsonin = json.loads(request.body)
-			result = services.addCategories(json['name'],json['description'])
+			result = services.addCategories(jsonin['name'],jsonin['description'])
 		except:
 			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
 		if result ==1 :
