@@ -16,7 +16,7 @@ def getSubcategories(categoryid):
     categories = models.Category.objects.filter(id=categoryid)
     if len(categories)==0:
         return -1
-    subcategories = models.Subcategories.objects.filter(category = categories[0])
+    subcategories = models.Subcategory.objects.filter(category = categories[0])
     if len(subcategories)==0:
         return -2
     jsonout = []
@@ -30,9 +30,9 @@ def getSubcategories(categoryid):
     return jsonout
 
 def addCategories(name,description):
-	category = models.Category(name = name, description = description)
-	category.save()
-	return 1;
+    category = models.Category(name = name, description = description)
+    category.save()
+    return 1;
 def addSubCategories(name,description,categoryid):
 	category = models.Category.objects.filter(id=categoryid)
 	if len(category)==0:
