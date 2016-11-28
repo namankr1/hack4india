@@ -3,6 +3,12 @@ from userprofile.models import Profile
 from quotes.models import Quote
 from userprofile import services
 from quotes import services as quoteServices
+def getuserid(phone):
+    u=User.objects.filter(username='I'+str(phone))
+    if len(u)==0:
+        return -1
+    profileobj=models.Profile.objects.filter(user=u[0])
+    return profileobj[0].id
 def pushGovtNotification(title, description, url):
 	govtnotification = models.GovtNotification(title = title, body = description, url = url)
 	govtnotification.save()
@@ -19,7 +25,9 @@ def getGovtNotifications():
 		d['url']=e.url
 		jsonout.append(d)
 	return jsonout
-def raiseInterest(senderid, recieverid,quoteid,price,quantity):
+def raiseInterest(senderphone, recieverphone,quoteid,price,quantity):
+    senderid = getuserid(senderphone)
+    recieverid = getuserid(recieverphone)
 	sender = Profile.objects.filter(id = senderid)
 	reciever = Profile.objects.filter(id = recieverid)
 	qu
@@ -34,7 +42,8 @@ def raiseInterest(senderid, recieverid,quoteid,price,quantity):
 	accountNotification.save()
 	return 1
 
-def getNotifications(userid):
+def getNotifications(phone):
+    userid = getuserid(phone)
 	user = Profile.objects.filter(id = userid)
 	if len(user)==0:
 		return -1
@@ -50,7 +59,9 @@ def getNotifications(userid):
 		jsonout.append(d)
 	return jsonout
 
-def negotiate(senderid, recieverid,quoteid,price,quantity):
+def negotiate(senderphone, recieverphone,quoteid,price,quantity):
+    senderid = getuserid(senderphone)
+    recieverid = getuserid(recieverphone)
 	sender = Profile.objects.filter(id = senderid)
 	reciever = Profile.objects.filter(id = recieverid)
 	qu
@@ -68,7 +79,9 @@ def negotiate(senderid, recieverid,quoteid,price,quantity):
 	accountNotification.save()
 	return 1
 
-def endNegotiation(senderid, recieverid,quoteid,status):
+def endNegotiation(senderphone, recieverphone,quoteid,status):
+    senderid = getuserid(senderphone)
+    recieverid = getuserid(recieverphone)
 	sender = Profile.objects.filter(id = senderid)
 	reciever = Profile.objects.filter(id = recieverid)
 	qu

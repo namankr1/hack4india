@@ -7,4 +7,5 @@ urlpatterns =[
     url(r'^getquotebyuser/$', views.getquotebyuser, name='getquotebyuser'),
     url(r'^deletequote/$', views.deletequote, name='deletequote'),
     url(r'^updatequote/$', views.updatequote, name='updatequote'),
+    url(r'^searchquote/$', views.searchquotes, name='searchquote'),
     ]
