@@ -193,6 +193,7 @@ def getProfile(jsonin):
         if len(profileobj)==0:
             return -1
     jsonout={}
+    jsonout['userid'] = profileobj[0].id
     jsonout['name']=profileobj[0].user.get_full_name()
     jsonout['phone']=profileobj[0].user.username[1:]
     jsonout['type']=profileobj[0].user.username[0]
