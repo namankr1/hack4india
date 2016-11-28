@@ -21,7 +21,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/user/', include('userprofile.urls')),
     url(r'^api/categorization/', include('categorization.urls')),
-    url(r'^api/quotes/', include('quotes.urls'))
+    url(r'^api/quotes/', include('quotes.urls')),
+    url(r'^api/notification/', include('notification.urls'))
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
