@@ -91,7 +91,7 @@ def sendOTP(request):
         jsonin = json.loads(request.body)
         result = services.sendOTP(jsonin['phone'])
         if result==1:
-            return JsonResponse({'status':'ok', 'message': 'Bad Request'})
+            return JsonResponse({'status':'ok', 'message': 'OTP sent'})
     else:
         return JsonResponse({'status':'err', 'message': 'Bad Request'})
 

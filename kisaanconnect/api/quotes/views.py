@@ -107,7 +107,3 @@ def searchquotes(request):
             return JsonResponse({'status':'ok','results':result})
     else:
         return JsonResponse({'status':'err','message':'Bad request'})
-
-
-        
-            

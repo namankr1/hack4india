@@ -115,16 +115,21 @@ def changePassword(phone,oldpassword,newpassword):
     if(u[0].check_password(oldpassword)):
         u[0].set_password(newpassword)
         u[0].save()
+        if(u[0].check_password(newpassword)):
+            print "Changed"
         return 1
     else:
         return -3
 
 def forgotPassword(phone,otp,newpassword):
     resultotp = verifyOTP(phone,otp)
+    
     if resultotp == 1:
         u=User.objects.filter(username='I'+str(phone))
-        u.set_password(newpassword)
-        u.save()
+        u[0].set_password(newpassword)
+        u[0].save()
+        if(u[0].check_password(newpassword)):
+            print "Changed"
         return 1
     else:
         return resultotp
