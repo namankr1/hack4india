@@ -135,20 +135,26 @@ def forgotPassword(phone,otp,newpassword):
         return resultotp
 
 def profileUpdate(jsonin, img=None):
-    user = User.objects.filter(id= jsonin['userid'])
-    flag=0
-    if len(user) == 0:
-        return -1
     if 'phone' in jsonin:
-        if len(jsonin['phone'])!=10:
+        u=User.objects.filter(username='I'+str(jsonin['phone']))
+        if len(u)==0:
             return -1
-        musers1 = User.objects.filter(username='I'+str(jsonin['phone']))
-        musers2 = User.objects.filter(username='C'+str(jsonin['phone']))
-        if len(musers1) !=0 or len(musers2)!=0:
-            return -2
-        user.username = user.username[0]+str(jsonin['phone'])
-        user.save()
-        flag=1
+        profileobj=models.Profile.objects.filter(user=u[0])
+    elif 'userid' in jsonin:
+        profileobj = models.Profile.objects.filter(id=jsonin['userid'])
+        if len(profileobj)==0:
+            return -1
+    flag=0
+    #if 'phone' in jsonin:
+        #if len(jsonin['phone'])!=10:
+            #return -1
+        #musers1 = User.objects.filter(username='I'+str(jsonin['phone']))
+        #musers2 = User.objects.filter(username='C'+str(jsonin['phone']))
+        #if len(musers1) !=0 or len(musers2)!=0:
+            #return -2
+        #user.username = user.username[0]+str(jsonin['phone'])
+        #user.save()
+        #flag=1
     if 'address' in jsonin:
         profileobj = models.Profile.objects.filter(user = user)
         if len(profileobj)==0:
