@@ -14,7 +14,8 @@ def sendOTP(phone):
     if len(u)==0:
         return -2
     profileobj=models.Profile.objects.filter(user=u[0])
-    token = random.randrange(100000, 1000000, 1)
+    #token = random.randrange(100000, 1000000, 1)
+    token = 112233
     otp = models.OTPRecord(otp=token,profile=profileobj[0]);
     otp.save()
     return 1
@@ -55,7 +56,8 @@ def profile_signup(firstName,lastName,phone,address,password):
         return -6
     profileobj = models.Profile(user = user, accountType = accountType,location = loc  )
     profileobj.save();
-    token = random.randrange(100000, 1000000, 1)
+    #token = random.randrange(100000, 1000000, 1)
+    token = 112233
     otp = models.OTPRecord(otp=token,profile=profileobj);
     otp.save()
     sendOTP(phone)
