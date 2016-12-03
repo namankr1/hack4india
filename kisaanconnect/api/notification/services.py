@@ -46,23 +46,24 @@ def raiseInterest(senderphone, recieverphone,quoteid,price,quantity):
     return 1
 
 def getNotifications(phone):
-	userid = getuserid(phone)
-	user = Profile.objects.filter(id = userid)
-	if len(user)==0:
-		return -1
-	notifications = models.AccountNotification.objects.filter(reciever = user)
-	jsonout=[]
-	for n in notifications:
-		d={}
-		d['id']=n.id
-		d['sender'] = services.getProfile({'userid':n.sender.id})
-		#d['quote'] = quoteServices.getQuote(n.quote.id)
-		d['quoteid'] = n.quote.id
-		d['price'] = n.price
-		d['quantity'] = n.quantity
-		d['status'] = n.status
-		jsonout.append(d)
-	return jsonout
+    userid = getuserid(phone)
+    user = Profile.objects.filter(id = userid)
+    if len(user)==0:
+        return -1
+    notifications = models.AccountNotification.objects.filter(reciever = user)
+    jsonout=[]
+    for n in notifications:
+        d={}
+        d['id']=n.id
+        d['sender'] = services.getProfile({'userid':n.sender.id})
+        #d['quote'] = quoteServices.getQuote(n.quote.id)
+        d['quoteid'] = n.quote.id
+        d['type'] = n.quote.type
+        d['price'] = n.price
+        d['quantity'] = n.quantity
+        d['status'] = n.status
+        jsonout.append(d)
+    return jsonout
 
 def negotiate(senderphone, recieverphone,quoteid,price,quantity):
 	print "hi"
@@ -79,7 +80,7 @@ def negotiate(senderphone, recieverphone,quoteid,price,quantity):
 	if len(quote1)==0:
 		return -3
 	print "hi"
-	accountNotification = models.AccountNotification.objects.filter(reciever =sender1[0],sender=reciever1[0],quote=quote1[0])
+	accountNotification = models.AccountNotification.objects.filter(reciever=sender1[0],sender=reciever1[0],quote=quote1[0])
 	if len(accountNotification)==0:
 		return -4
 	print "hi"
