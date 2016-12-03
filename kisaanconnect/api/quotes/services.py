@@ -1,29 +1,33 @@
 from . import models
+from django.contrib.auth.models import User
+from userprofile import models as usermodels
 from userprofile import services as userservices
 from categorization import services as catservices
-from categorization import models
+from categorization import models as categorymodels
 from django.db.models import Q
-import operator
+import operator,math
 
 def addQuote(phone,subcategoryId,type,quantity,price,description=None):
     if len(phone) !=10:
         return -1
-    profileobj = models.Profile.filter(phone=username)
-    if len(profileobj)==0:
+    u=User.objects.filter(username='I'+str(phone))
+    if len(u)==0:
         return -2
-    subcategoryobj=models.Subcategory.filter(id = subcategoryId)
+    profileobj=usermodels.Profile.objects.filter(user=u[0])
+    subcategoryobj=categorymodels.Subcategory.objects.filter(id = subcategoryId)
     if len(subcategoryobj)==0:
         return -3
-    quoteobj = models.Quote(profile = profileobj,subcategory = subcategoryobj,type=type,quantity = quantity, price= price,description = description,is_active=True)
+    quoteobj = models.Quote(profile = profileobj[0],subcategory = subcategoryobj[0],type=type,quantity = quantity, price= price,bidvalue=price,description = description,is_active=True)
     quoteobj.save()
-    ratingobj=models.Rating.filter(profile=profileobj,subcategory=subcategoryobj)
+    ratingobj=models.Rating.objects.filter(profile=profileobj[0],subcategory=subcategoryobj[0])
     if len(ratingobj)==0:
-        newobj=models.Rating(profile=profileobj,subcategory=subcategoryobj,rating=0)
+        newobj=models.Rating(profile=profileobj[0],subcategory=subcategoryobj[0],rating=0)
         newobj.save()
     return 1
 
 def getQuote(quoteId):
-    quoteobj = models.Quote.filter(id=quoteId)
+    quoteobj = models.Quote.objects.filter(id=quoteId)
+    print "hi"
     if len(quoteobj)==0:
         return -1
     else:
@@ -33,16 +37,21 @@ def getQuote(quoteId):
         jsonout['quantity']=quoteobj[0].quantity
         jsonout['price']=quoteobj[0].price
         jsonout['description']=quoteobj[0].description
-        jsonout['profile']=userservices.getProfile(quoteobj[0].profile.id)
+        print "hi"
+        jsonout['profile']=userservices.getProfile({"userid":quoteobj[0].profile.id})
         jsonout['subcategoryname']=quoteobj[0].subcategory.name
+        print "hi"
         jsonout['is_active']=quoteobj[0].is_active
         jsonout['bidvalue']=quoteobj[0].bidvalue
-        ratingobj=models.Rating.filter(profile=profileobj,subcategory=subcategoryobj)
+        print "hi"
+        ratingobj=models.Rating.objects.filter(profile=quoteobj[0].profile,subcategory=quoteobj[0].subcategory)
+        print "hi"
         jsonout['rating']=ratingobj[0].rating
+        
         return jsonout
 
 def deleteQuote(quoteId):
-    quoteobj = models.Quote.filter(id=jsonin['quoteId'])
+    quoteobj = models.Quote.objects.filter(id=quoteId)
     if len(quoteobj)==0:
         return -1
     quoteobj[0].delete()
@@ -51,24 +60,24 @@ def updateQuote(jsonin):
     flag=0
     if 'quoteId' not in jsonin:
         return -1
-    quoteobj = models.Quote.filter(id=jsonin['quoteId'])
+    quoteobj = models.Quote.objects.filter(id=jsonin['quoteId'])
     if len(quoteobj)==0:
         return -2
     if 'type' in jsonin:
-        quoteobj.update(type=json['type'])
+        quoteobj.update(type=jsonin['type'])
         flag=1
     if 'quantity' in jsonin:
-        quoteobj.update(quantity=json['quantity'])
+        quoteobj.update(quantity=jsonin['quantity'])
         flag=1
     if 'price' in jsonin:
-        quoteobj.update(price=json['price'])
+        quoteobj.update(price=jsonin['price'])
         flag=1
     if 'is_active' in jsonin:
-        quoteobj.update(is_active=json['is_active'])
+        quoteobj.update(is_active=jsonin['is_active'])
         flag=1
     if 'bidvalue' in jsonin:
         if quoteobj.bidvalue<jsonin['bidvalue']:
-            quoteobj.update(bidvalue=json['bidvalue'])
+            quoteobj.update(bidvalue=jsonin['bidvalue'])
             flag=1
     if flag==1:
         return 1
@@ -76,15 +85,39 @@ def updateQuote(jsonin):
         return 0
         
 def getQuotesbyUser(phone,subcategoryId):
+    print "hi"
     if len(phone) !=10:
         return -1
-    profileobj = models.Profile.filter(phone=username)
+    u=User.objects.filter(username='I'+str(phone))
+    if len(u)==0:
+        return -2
+    profileobj=usermodels.Profile.objects.filter(user=u[0])
     if len(profileobj)==0:
         return -2
-    subcategoryobj=models.Subcategory.filter(id = subcategoryId)
+    subcategoryobj=categorymodels.Subcategory.objects.filter(id = subcategoryId)
     if len(subcategoryobj)==0:
         return -3
-    quoteobj = models.Quote.filter(profile=profileobj,subcategory=subcategoryobj)
+    print "hi"
+    quoteobj = models.Quote.objects.filter(profile=profileobj[0],subcategory=subcategoryobj[0])
+    print len(quoteobj)
+    jsonout=[]
+    for q in quoteobj:
+        j=getQuote(q.id)
+        jsonout.append(j)
+    return jsonout
+
+def getallQuotesbyUser(phone):
+    print "hi"
+    if len(phone) !=10:
+        return -1
+    u=User.objects.filter(username='I'+str(phone))
+    if len(u)==0:
+        return -2
+    profileobj=usermodels.Profile.objects.filter(user=u[0])
+    if len(profileobj)==0:
+        return -2
+    quoteobj = models.Quote.objects.filter(profile=profileobj[0])
+    print len(quoteobj)
     jsonout=[]
     for q in quoteobj:
         j=getQuote(q.id)
@@ -94,33 +127,44 @@ def getQuotesbyUser(phone,subcategoryId):
 def distance(lat1, lng1, lat2, lng2):
     #return distance as meter if you want km distance, remove "* 1000"
     radius = 6371 * 1000
+    print "hi"
     dLat = (lat2-lat1) * math.pi / 180
     dLng = (lng2-lng1) * math.pi / 180
+    print "hi"
     lat1 = lat1 * math.pi / 180
     lat2 = lat2 * math.pi / 180
-    val = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1) * cos(lat2)    
-    ang = 2 * atan2(sqrt(val), sqrt(1-val))
+    val = math.sin(dLat/2) * math.sin(dLat/2) + math.sin(dLng/2) * math.sin(dLng/2) * math.cos(lat1) * math.cos(lat2)  
+    print "hi"
+    ang = 2 * math.atan2(math.sqrt(val), math.sqrt(1-val))
     return radius * ang
 
 def searchQuotes(phone,subcategoryId):
     if len(phone) !=10:
         return -1
-    profileobj = models.Profile.filter(phone=username)
+    u=User.objects.filter(username='I'+str(phone))
+    if len(u)==0:
+        return -2
+    profileobj=usermodels.Profile.objects.filter(user=u[0])
     if len(profileobj)==0:
         return -2
-    subcategoryobj=models.Subcategory.filter(id = subcategoryId)
+    subcategoryobj=categorymodels.Subcategory.objects.filter(id = subcategoryId)
     if len(subcategoryobj)==0:
         return -3
-    lat1 = profileobj.location.latitude
-    lon1 = profileobj.location.longitude
-    quoteobj = models.Quote.filter(Q(subcategory=subcategoryobj) & ~Q(profile=profileobj))
+    lat1 = profileobj[0].location.latitude
+    lon1 = profileobj[0].location.longitude
+    quoteobj = models.Quote.objects.filter(subcategory=subcategoryobj[0]).exclude(profile=profileobj[0])
+    print len(quoteobj)
     jsonout=[]
     for q in quoteobj:
         d={}
+        print "hi"
         lat2=q.profile.location.latitude
+        print "hi"
         lon2 = q.profile.location.longitude
+        print "hi"
         dis=distance(lat1,lon1,lat2,lon2)
-        ratingobj=models.Rating.filter(profile=q.profile,subcategory=subcategoryobj)
+        print "hi"
+        ratingobj=models.Rating.objects.filter(profile=q.profile,subcategory=subcategoryobj[0])
         rating=ratingobj[0].rating
         d['quote']=getQuote(q.id)
         d['rating']=rating

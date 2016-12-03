@@ -158,7 +158,7 @@ def profileUpdate(jsonin, img=None):
         #user.save()
         #flag=1
     if 'address' in jsonin:
-        profileobj = models.Profile.objects.filter(user = user)
+        profileobj = models.Profile.objects.filter(user=u[0])
         if len(profileobj)==0:
             return -3
         geo = json.loads(getLatLon(jsonin['address']))
@@ -173,7 +173,7 @@ def profileUpdate(jsonin, img=None):
         else:
             return -3
     if img != None:
-        profileobj = models.Profile.objects.filter(user = user)
+        profileobj = models.Profile.objects.filter(user=u[0])
         if len(profileobj)==0:
             return -4
         profileobj[0].picture=img
@@ -185,6 +185,7 @@ def profileUpdate(jsonin, img=None):
         return 0
 
 def getProfile(jsonin):
+    print "his"
     if 'phone' in jsonin:
         u=User.objects.filter(username='I'+str(jsonin['phone']))
         if len(u)==0:

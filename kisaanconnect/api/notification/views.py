@@ -24,7 +24,7 @@ def getgovtnotifications(request):
 		except Exception:
 			return JsonResponse({'status':'err','message':'Server encountered a problem. Try refreshing again'})
 		return JsonResponse({'status':'ok','govtNotifications':result})
-	except Exception:
+	else:
 		return JsonResponse({'status':'err','message':'Bad request'})
 
 def raiseinterest(request):
@@ -32,7 +32,7 @@ def raiseinterest(request):
 		result=0
 		try:
 			jsonin = json.loads(request.body)
-			result = services.raiseInterest(jsonin['senderid'],jsonin['recieverid'],jsonin['quoteid'],jsonin['price'],jsonin['quantity'])
+			result = services.raiseInterest(jsonin['senderphone'],jsonin['recieverphone'],jsonin['quoteid'],jsonin['price'],jsonin['quantity'])
 		except Exception:
 			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
 		if result == -1:
@@ -53,7 +53,7 @@ def getnotifications(request):
 		result=0
 		try:
 			jsonin = json.loads(request.body)
-			result = services.getNotifications(jsonin['userid'])
+			result = services.getNotifications(jsonin['phone'])
 		except Exception:
 			return JsonResponse({'status':'err','message':'Data given to the server is invalid'})
 		if result == 0:
@@ -68,7 +68,7 @@ def negotiate(request):
 		result = 0
 		try:
 			jsonin = json.loads(request.body)
-			result = services.negotiate(jsonin['senderid'],jsonin['recieverid'],jsonin['quoteid'],jsonin['price'],jsonin['quantity'])
+			result = services.negotiate(jsonin['senderphone'],jsonin['recieverphone'],jsonin['quoteid'],jsonin['price'],jsonin['quantity'])
 		except Exception:
 			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
 		if result == -1:
@@ -91,7 +91,7 @@ def endnegotiation(request):
 		result = 0
 		try:
 			jsonin = json.loads(request.body)
-			result = services.endNegotiation(jsonin['senderid'],jsonin['recieverid'],jsonin['quoteid'],jsonin['status'])
+			result = services.endNegotiation(jsonin['senderphone'],jsonin['recieverphone'],jsonin['quoteid'],jsonin['status'])
 		except Exception:
 			return JsonResponse({'status':'err','message':'Data given to server is invalid'})
 		if result == -1:

@@ -1,12 +1,17 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import services
+import json
 # Create your views here.
 def addquote(request):
     if request.method == 'POST':
         result=0
         try:
+            
             jsonin = json.loads(request.body)
+            
             if 'description' in jsonin:
+                print "ko"
                 result = services.addQuote(jsonin['phone'],jsonin['subcategoryId'], jsonin['type'],jsonin['quantity'],jsonin['price'],jsonin['description'])
             else:
                 result = services.addQuote(jsonin['phone'],jsonin['subcategoryId'], jsonin['type'],jsonin['quantity'],jsonin['price'])
@@ -45,7 +50,8 @@ def getquotebyuser(request):
         result = 0
         try:
             jsonin = json.loads(request.body)
-            result = services.getQuotebyUser(jsonin['phone'],jsonin['subcategoryId'])
+            print "ko"
+            result = services.getQuotesbyUser(jsonin['phone'],jsonin['subcategoryId'])
         except Exception:
             return JsonResponse({'status':'err','message':'Data given to server is invalid'})
         if result ==-1:
@@ -107,3 +113,26 @@ def searchquotes(request):
             return JsonResponse({'status':'ok','results':result})
     else:
         return JsonResponse({'status':'err','message':'Bad request'})
+
+def getallquotesbyuser(request):
+    if request.method=='POST':
+        result = 0
+        try:
+            jsonin = json.loads(request.body)
+            result = services.getallQuotesbyUser(jsonin['phone'])
+        except Exception:
+            return JsonResponse({'status':'err','message':'Data given to server is invalid'})
+        if result ==-1:
+            return JsonResponse({'status' : 'err', 'message' : 'Phone number is invalid'})
+        elif result == -2:
+            return JsonResponse({'status' : 'err', 'message' : 'Mobile number is not registered'})
+        elif result == -3:
+            return JsonResponse({'status' : 'err', 'message' : 'Sub category not found'})
+        else:
+            return JsonResponse({'status':'ok', 'quote':result})
+    else:
+    	return JsonResponse({'status':'err', 'message':'Bad request'})
+
+
+        
+            

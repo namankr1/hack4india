@@ -30,6 +30,7 @@ def getSubcategories(categoryid):
     return jsonout
 
 def addCategories(name,description):
+    print "Hi"
     category = models.Category(name = name, description = description)
     category.save()
     return 1;

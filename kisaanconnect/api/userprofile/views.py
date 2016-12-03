@@ -148,7 +148,7 @@ def profileupdate(request):
         result = 0
         try:
             jsonin = json.loads(request.body)
-            result = services.profileUpdate(jsonin,request.FILES['imageURL'])
+            result = services.profileUpdate(jsonin)
         except Exception:
             return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
         if result == -1:

@@ -1,0 +1,69 @@
+List of useful urls to be hit for KisaanConnect APIs:
+
+- /api/categorization/getcategories - To get all the broad categories
+        GET call. Nothing to pass as JSON
+
+- /api/categorization/getsubcategories - To get all the sub caategories of a particular broad category
+        POST call. Pass the following: 'categoryid'
+
+- /api/notification/pushgovtnotification - To add govt. notifications to database
+        POST call. Pass the following: 'title','description','url'
+
+- /api/notification/getgovtnotifications - To get all govt. notifications
+        GET call. Nothing to pass.
+
+- /api/notification/raiseinterest - To be hit when user clicks 'I am interested'
+        POST call. Following have to be passed : 'senderphone','recieverphone','quoteid','price','quantity'
+
+- /api/notification/getnotifications - To get all the ntifications of a particular user
+        POST call. Following have to be passed : 'phone'
+
+- /api/notification/negotiate - To negotiate the price and quantity
+        POST call. Following have to be passed : 'senderphone','recieverphone','quoteid','price','quantity'
+
+- /api/notification/endnegotiation - To accept or reject the negotiation.
+        POST call. Following have to be passed : 'senderphone','recieverphone','quoteid','status'
+
+- /api/quotes/addquote - To add a quotation by user to a particular subcategory
+        POST call. Following have to be passed: 'phone', 'subcategoryId', 'type','quantity', 'price', 'description'
+
+- /api/quotes/getquote - To get all info about a particular quotation of a particular user
+        POST call. Following have to be passed : 'quoteId'
+
+- /api/quotes/getquotebyuser - To get all the quotations of a particular subcategory of a particular user
+        POST call. Following have to be passed : 'phone','subcategoryId'
+
+- /api/quotes/deletequote - To delete a particular quotation of a user.
+        POST call. Following have to be passed : 'quoteId'
+
+- /api/quotes/updatequote - To update infos regarding a quotation.
+        POST call. Following have to be passed : 'quoteId', 'type','quantity','price', 'is_active','bidvalue'. All values except quoteId are optional. You are free to pass it or not. If it is passed, then it will be updated to the current value
+
+- /api/quotes/searchquotes - To search for quotes (buy segment)
+        POST call. Following have to be passed : 'phone','subcategoryId'
+
+- /api/user/signup - To sign a user up in the database
+        POST call. Following have to passed : 'firstName','lastName', 'phone','address','password'
+
+- /api/user/signin - To log in a user.
+        POST call. Following have to be passed : 'phone','password'
+
+- /api/user/verifyotp - To verify all kinds of otps of a user in database. If OTP is present, then it will verify or else give error
+        POST call. Following have to passed : 'phone','otp'
+
+- /api/user/signout - To log out a user from the device
+        
+- /api/user/sendotp - To send an any kind of OTP to phone.
+        POST call. Following have to be passed : 'phone'
+
+- /api/user/getprofile - To get all the personal info of a user
+        POST call. Following have to be passed : 'phone' or 'userid'
+
+- /api/user/changepassword - To change password of a user. This is not for Forgot Password
+        POST call. Following have to be passed : 'phone','oldpassword','newpassword'
+
+- /api/user/forgotpassword - To change the password if the user forgot the password
+        POST call. Following have to be passed : 'phone','otp','newpassword'
+
+-/api/user/profileupdate - To update the profile of a user.
+        POST call. Following have to be passed : 'userid','phone','address'. 'userid' is mandatory. Others are optional. If passed then, value will be updated.
