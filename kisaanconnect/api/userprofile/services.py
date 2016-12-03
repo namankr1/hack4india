@@ -15,7 +15,7 @@ def sendOTP(phone):
         return -2
     profileobj=models.Profile.objects.filter(user=u[0])
     #token = random.randrange(100000, 1000000, 1)
-    token = 112233
+    token=112233
     otp = models.OTPRecord(otp=token,profile=profileobj[0]);
     otp.save()
     return 1
@@ -53,6 +53,7 @@ def profile_signup(firstName,lastName,phone,address,password):
         loc = models.Location(address = address,latitude = geo['results'][0]['geometry']['location']['lat'],longitude = geo['results'][0]['geometry']['location']['lng'])
         loc.save();
     else:
+        user.delete()
         return -6
     profileobj = models.Profile(user = user, accountType = accountType,location = loc  )
     profileobj.save();
@@ -125,9 +126,11 @@ def changePassword(phone,oldpassword,newpassword):
 
 def forgotPassword(phone,otp,newpassword):
     resultotp = verifyOTP(phone,otp)
-    
     if resultotp == 1:
         u=User.objects.filter(username='I'+str(phone))
+        if len(u)==0:
+            return -2
+        profileobj=models.Profile.objects.filter(user=u[0])
         u[0].set_password(newpassword)
         u[0].save()
         if(u[0].check_password(newpassword)):
