@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from . import services
 # Create your views here.
