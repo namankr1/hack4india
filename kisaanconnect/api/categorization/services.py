@@ -8,7 +8,7 @@ def getCategories():
         d['id']=c.id
         d['name']=c.name
         d['description']=c.description
-        d['picture']=c.picture.url
+        d['picture'] = "pict/" + c.picture.url
         jsonout.append(d)
     return jsonout
 
@@ -25,7 +25,7 @@ def getSubcategories(categoryid):
         d['id']=c.id
         d['name']=c.name
         d['description']=c.description
-        d['picture']=c.picture.url
+        d['picture'] = "pict/" + c.picture.url
         jsonout.append(d)
     return jsonout
 

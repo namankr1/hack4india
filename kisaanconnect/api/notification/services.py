@@ -1,6 +1,6 @@
 from . import models
 from userprofile.models import Profile
-from quotes.models import Quote
+from quotes.models import Quote,Rating
 from userprofile import services
 from quotes import services as quoteServices
 from django.contrib.auth.models import User
@@ -88,24 +88,31 @@ def negotiate(senderphone, recieverphone,quoteid,price,quantity):
 	return 1
 
 def endNegotiation(senderphone, recieverphone,quoteid,status):
-	print "hi"
-	senderid = getuserid(senderphone)
-	recieverid = getuserid(recieverphone)
-	sender = Profile.objects.filter(id = senderid)
-	reciever = Profile.objects.filter(id = recieverid)
-	if len(sender)==0:
-		return -1
-	if len(reciever) == 0:
+    print "hi"
+    senderid = getuserid(senderphone)
+    recieverid = getuserid(recieverphone)
+    sender = Profile.objects.filter(id = senderid)
+    reciever = Profile.objects.filter(id = recieverid)
+    if len(sender)==0:
+        return -1
+    if len(reciever) == 0:
 		return -2
-	quote = Quote.objects.filter(id = quoteid)
-	if len(quote)==0:
+    quote = Quote.objects.filter(id = quoteid)
+    if len(quote)==0:
 		return -3
-	print "hi"
-	accountNotification = models.AccountNotification.objects.filter(reciever =sender[0],sender=reciever[0],quote=quote[0])
-	if len(accountNotification)==0:
-		return -4
-	print len(accountNotification)
-	if status != 1 and status != -1:
-		return -5
-	accountNotification.update(sender=sender[0],reciever= reciever[0],status = status)
-	return 1
+    accountNotification = models.AccountNotification.objects.filter(reciever =sender[0],sender=reciever[0],quote=quote[0])
+    if len(accountNotification)==0:
+        return -4
+    print len(accountNotification)
+    temp1=accountNotification[0].quantity
+    if status != 1 and status != -1:
+        return -5
+    accountNotification.update(sender=sender[0],reciever= reciever[0],status = status)
+    if status == 1:
+        quote[0].quantity = quote[0].quantity - temp1
+        quote[0].save()
+    ratingobj=Rating.objects.filter(profile=quote[0].profile,subcategory=quote[0].subcategory)
+    if len(ratingobj)!=0:
+        ratingobj[0].rating = ratingobj[0].rating + 1
+        ratingobj[0].save()
+    return 1

@@ -71,6 +71,7 @@ def updateQuote(jsonin):
         flag=1
     if 'price' in jsonin:
         quoteobj.update(price=jsonin['price'])
+        quoteobj.update(bidvalue=jsonin['price'])
         flag=1
     if 'is_active' in jsonin:
         quoteobj.update(is_active=jsonin['is_active'])
