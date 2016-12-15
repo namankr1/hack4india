@@ -110,3 +110,48 @@ def endnegotiation(request):
 			return JsonResponse({'status':'ok','message':'Server encountered a problem'})
 	else:
 		return JsonResponse({'status':'ok','message':'Bad Request'})
+
+def getnegotiationsofuser(request):
+	if request.method == 'POST':
+		result=0
+		try:
+			jsonin = json.loads(request.body)
+			result = services.getNegotiationsOfUser(jsonin['phone'])
+		except Exception:
+			return JsonResponse({'status':'err','message':'Data given to the server is invalid'})
+		if result == 0:
+			return JsonResponse({'status':'err','message':'Server encountered a problem'})
+		else:
+			return JsonResponse({'status':'ok', 'negotiations':result})
+	else:
+		return JsonResponse({'status':'err','message':'Bad request'})
+
+def getordersofuser(request):
+	if request.method == 'POST':
+		result=0
+		try:
+			jsonin = json.loads(request.body)
+			result = services.getOrdersOfUser(jsonin['phone'])
+		except Exception:
+			return JsonResponse({'status':'err','message':'Data given to the server is invalid'})
+		if result == 0:
+			return JsonResponse({'status':'err','message':'Server encountered a problem'})
+		else:
+			return JsonResponse({'status':'ok', 'negotiations':result})
+	else:
+		return JsonResponse({'status':'err','message':'Bad request'})
+
+def getmarketinsights(request):
+	if request.method == 'POST':
+		result=0
+		# try:
+		jsonin = json.loads(request.body)
+		result = services.marketInsights(jsonin['phone'])
+		# except Exception:
+		# 	return JsonResponse({'status':'err','message':'Data given to the server is invalid'})
+		if result == 0:
+			return JsonResponse({'status':'err','message':'Server encountered a problem'})
+		else:
+			return JsonResponse({'status':'ok', 'insights':result})
+	else:
+		return JsonResponse({'status':'err','message':'Bad request'})
