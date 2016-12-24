@@ -14,7 +14,7 @@ def getuserid(phone):
     profileobj=Profile.objects.filter(user=u[0])
     return profileobj[0].id
 def pushGovtNotification(title, description, url):
-	govtnotification = models.GovtNotification(title = title, body = description, url = url)
+	govtnotification = models.GovtNotification(title = categorizationServices.translate(title), body = categorizationServices.translate(description), url = url)
 	govtnotification.save()
 	return 1
 
@@ -221,7 +221,11 @@ def whatOthersSell(quotesnearby,subcategories):
             print q
             if q.subcategory.id != subcategory["id"]:
                 p.append(q)
-        percentOfQuotesInSubCategory = (float(len(quotesnearby) - len(p))/len(quotesnearby))*100.0
+        
+        if len(quotesnearby) != 0 :
+            percentOfQuotesInSubCategory = (float(len(quotesnearby) - len(p))/len(quotesnearby))*100.0
+        else:
+            percentOfQuotesInSubCategory = 'Nil'
         d["percent"] = percentOfQuotesInSubCategory
         jsonout.append(d)
     print jsonout

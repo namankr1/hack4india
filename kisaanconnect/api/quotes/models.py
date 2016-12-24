@@ -11,7 +11,7 @@ class Quote(models.Model):
     #Subcategory to which the quote belongs to
     subcategory = models.ForeignKey(Subcategory)
     #Type of the quote
-    type = models.CharField(max_length=70)
+    type = models.TextField()
     #Quantity of the item to be added to quote
     quantity = models.FloatField()
     #Price of the quote

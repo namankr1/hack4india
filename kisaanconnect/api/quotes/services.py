@@ -17,7 +17,10 @@ def addQuote(phone,subcategoryId,type,quantity,price,description=None):
     subcategoryobj=categorymodels.Subcategory.objects.filter(id = subcategoryId)
     if len(subcategoryobj)==0:
         return -3
-    quoteobj = models.Quote(profile = profileobj[0],subcategory = subcategoryobj[0],type=type,quantity = quantity, price= price,bidvalue=price,description = description,is_active=True)
+    quotes = models.Quote.objects.filter(profile = profileobj[0],subcategory = subcategoryobj[0])
+    if len(quotes)!=0:
+    	return -4
+    quoteobj = models.Quote(profile = profileobj[0],subcategory = subcategoryobj[0],type=catservices.translate(type),quantity = quantity, price= price,bidvalue=price,description=catservices.translate(description),is_active=True)
     quoteobj.save()
     ratingobj=models.Rating.objects.filter(profile=profileobj[0],subcategory=subcategoryobj[0])
     if len(ratingobj)==0:
@@ -64,7 +67,7 @@ def updateQuote(jsonin):
     if len(quoteobj)==0:
         return -2
     if 'type' in jsonin:
-        quoteobj.update(type=jsonin['type'])
+        quoteobj.update(type=catservices.translate(jsonin['type']))
         flag=1
     if 'quantity' in jsonin:
         quoteobj.update(quantity=jsonin['quantity'])

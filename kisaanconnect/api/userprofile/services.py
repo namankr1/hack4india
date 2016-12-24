@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 import random
 import json,urllib
+from categorization import services as catservices
 
 def getLatLon(address):
     address = urllib.quote_plus(address)
@@ -40,7 +41,7 @@ def profile_signup(firstName,lastName,phone,address,password):
     u=User.objects.filter(username='I'+str(phone))
     if len(u)>0:
         return -7
-    user = User.objects.create_user(username = accountType+str(phone), password = password,first_name=firstName,last_name=lastName,is_active=False)
+    user = User.objects.create_user(username = accountType+str(phone), password = password,first_name=firstName,last_name= lastName,is_active=False)
     print password
     user.save()
     try:
@@ -50,7 +51,7 @@ def profile_signup(firstName,lastName,phone,address,password):
         return -6
     loc = None
     if geo['status'] == "OK":
-        loc = models.Location(address = address,latitude = geo['results'][0]['geometry']['location']['lat'],longitude = geo['results'][0]['geometry']['location']['lng'])
+        loc = models.Location(address=address,latitude = geo['results'][0]['geometry']['location']['lat'],longitude = geo['results'][0]['geometry']['location']['lng'])
         loc.save();
     else:
         user.delete()

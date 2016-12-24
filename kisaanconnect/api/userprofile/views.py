@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 import json
 from django.contrib.auth import logout
@@ -12,27 +13,27 @@ def signup(request):
             jsonin=json.loads(request.body)
             result = services.profile_signup(jsonin['firstName'],jsonin['lastName'],jsonin['phone'],jsonin['address'],jsonin['password']);
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Account type is incorrect'})
+            return JsonResponse({'status':'err', 'message': 'Account type is incorrect;खाता प्रकार गलत है;অ্যাকাউন্ট টাইপ ভুল;ఖాతా రకం తప్పు ఉంది;खाते प्रकार अयोग्य आहे;கணக்கு வகை தவறானது;اکاؤنٹ کی قسم غلط ہے;એકાઉન્ટ પ્રકાર ખોટો છે;ಖಾತೆಯ ವಿಧಾನ ಸರಿಯಲ್ಲ;അക്കൗണ്ട് തരം തെറ്റാണ്;ਖਾਤਾ ਕਿਸਮ ਦੀ ਗਲਤ ਹੈ;खाता प्रकार गलत छ;اڪائونٽ قسم جي غلط آهي'})
         elif result == -2:
-            return JsonResponse({'status':'err', 'message': 'First name field input contains characters other than space and letters'})
+            return JsonResponse({'status':'err', 'message': 'First name field input contains characters other than space and letters;प्रथम नाम क्षेत्र इनपुट अंतरिक्ष और पत्र के अलावा अन्य वर्ण हैं;প্রথম নামের ক্ষেত্রটি ইনপুট স্থান ও অক্ষর ছাড়া অন্য অক্ষর রয়েছে;మొదటి పేరు రంగంలో ఇన్పుట్ స్పేస్ మరియు అక్షరాలు కంటే ఇతర అక్షరాలను కలిగి;प्रथम नाव क्षेत्रात इनपुट जागा आणि अक्षरे पेक्षा इतर वर्ण आहेत;முதல் பெயர் துறையில் உள்ளீடு விண்வெளி மற்றும் கடிதங்கள் தவிர வேறு எழுத்துக்களை கொண்டுள்ளது;پہلا نام ان پٹ فیلڈ کا خلائی اور حروف کے علاوہ حروف پر مشتمل ہے;પ્રથમ નામ ક્ષેત્ર ઇનપુટ જગ્યા અને અક્ષરો કરતાં અન્ય અક્ષરો સમાવે છે;ಮೊದಲ ಹೆಸರು ಕ್ಷೇತ್ರದಲ್ಲಿ ಇನ್ಪುಟ್ ಸ್ಪೇಸ್ ಮತ್ತು ಅಕ್ಷರಗಳು ಬೇರೆ ಅಕ್ಷರಗಳನ್ನು ಒಳಗೊಂಡಿದೆ;പേരിന്റെ ആദ്യ ഇൻപുട്ട് സ്പേസ് കത്തുകളും പുറമെ പ്രതീകങ്ങൾ അടങ്ങിയിരിക്കുന്നു;ਪਹਿਲੀ ਨਾਮ ਖੇਤਰ ਇੰਪੁੱਟ ਸਪੇਸ ਅਤੇ ਅੱਖਰ ਵੱਧ ਹੋਰ ਅੱਖਰ ਹਨ;नाम क्षेत्र इनपुट ठाउँ र अक्षर भन्दा अन्य वर्ण समावेश;پهريون نالو ميدان پٽ خلا ۽ اکرن جي ڀيٽ ۾ ٻين اکرن تي مشتمل'})
         elif result == -3:
-            return JsonResponse({'status':'err', 'message': 'Last name field input contains characters other than space and letters'})
+            return JsonResponse({'status':'err', 'message': 'Last name field input contains characters other than space and letters;अंतिम नाम फ़ील्ड इनपुट अंतरिक्ष और पत्र के अलावा अन्य वर्ण हैं;শেষ নাম ক্ষেত্র ইনপুট স্থান ও অক্ষর ছাড়া অন্য অক্ষর রয়েছে;చివరి పేరు రంగంలో ఇన్పుట్ స్పేస్ మరియు అక్షరాలు కంటే ఇతర అక్షరాలను కలిగి;आडनाव क्षेत्रात इनपुट जागा आणि अक्षरे पेक्षा इतर वर्ण आहेत;கடைசி பெயர் துறையில் உள்ளீடு விண்வெளி மற்றும் கடிதங்கள் தவிர வேறு எழுத்துக்களை கொண்டுள்ளது;آخری نام ان پٹ فیلڈ کا خلائی اور حروف کے علاوہ حروف پر مشتمل ہے;છેલ્લું નામ ક્ષેત્ર ઇનપુટ જગ્યા અને અક્ષરો કરતાં અન્ય અક્ષરો સમાવે છે;ಕೊನೆಯ ಹೆಸರು ಕ್ಷೇತ್ರದಲ್ಲಿ ಇನ್ಪುಟ್ ಸ್ಪೇಸ್ ಮತ್ತು ಅಕ್ಷರಗಳು ಬೇರೆ ಅಕ್ಷರಗಳನ್ನು ಒಳಗೊಂಡಿದೆ;അവസാന നാമത്തിൽ ഫീൽഡ് ഇൻപുട്ട് സ്പേസ് കത്തുകളും പുറമെ പ്രതീകങ്ങൾ അടങ്ങിയിരിക്കുന്നു;ਆਖਰੀ ਨਾਮ ਖੇਤਰ ਇੰਪੁੱਟ ਸਪੇਸ ਅਤੇ ਅੱਖਰ ਵੱਧ ਹੋਰ ਅੱਖਰ ਹਨ;थर क्षेत्र इनपुट ठाउँ र अक्षर भन्दा अन्य वर्ण समावेश;آخري نالو ميدان پٽ خلا ۽ اکرن جي ڀيٽ ۾ ٻين اکرن تي مشتمل'})
         elif result == -4:
-            return JsonResponse({'status':'err', 'message': 'Phone number is not correct'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         elif result == -5:
-            return JsonResponse({'status':'err', 'message': 'Password is too short'})
+            return JsonResponse({'status':'err', 'message': 'Password is too short;पारण शब्द बहुत छोटा है;পাসওয়ার্ড অত্যন্ত ছোট;పాస్వర్డ్ చాలా చిన్నదిగా ఉంది;संकेतशब्द खूप लहान आहे;கடவுச்சொல் மிகச் சிறியது;پاس ورڈ کافی چھوٹا ہے;પાસવર્ડ ખૂબ ટૂંકો છે;ಪಾಸ್ವರ್ಡ್ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ;പാസ്വേഡ് വളരെ ചെറുതാണ്;ਪਾਸਵਰਡ ਬਹੁਤ ਛੋਟਾ ਹੈ;पासवर्ड निकै छोटो छ;پاسورڊ تمام ننڍو آهي'})
         elif result == -6:
-            return JsonResponse({'status':'err', 'message': 'Location cannot be retrieved successfully'})
+            return JsonResponse({'status':'err', 'message': 'Password is too short;पारण शब्द बहुत छोटा है;পাসওয়ার্ড অত্যন্ত ছোট;పాస్వర్డ్ చాలా చిన్నదిగా ఉంది;संकेतशब्द खूप लहान आहे;கடவுச்சொல் மிகச் சிறியது;پاس ورڈ کافی چھوٹا ہے;પાસવર્ડ ખૂબ ટૂંકો છે;ಪಾಸ್ವರ್ಡ್ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ;പാസ്വേഡ് വളരെ ചെറുതാണ്;ਪਾਸਵਰਡ ਬਹੁਤ ਛੋਟਾ ਹੈ;पासवर्ड निकै छोटो छ;پاسورڊ تمام ننڍو آهي'})
         elif result == -7:
-            return JsonResponse({'status':'err', 'message': 'Mobile number already registered'})
+            return JsonResponse({'status':'err', 'message': 'Mobile number already registered;मोबाइल नंबर पहले से ही पंजीकृत;মোবাইল নম্বর ইতিমধ্যেই নিবন্ধন;మొబైల్ నంబర్ ఇప్పటికే నమోదు;मोबाइल क्रमांक आधीपासूनच नोंदणीकृत;மொபைல் எண் ஏற்கனவே பதிவு;موبائل نمبر پہلے سے ہی رجسٹرڈ;મોબાઇલ નંબર પહેલાથી રજીસ્ટર;ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ;മൊബൈൽ നമ്പർ ഇതിനകം രജിസ്റ്റർ;ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਹੀ ਦਰਜ ਕੀਤਾ;मोबाइल नम्बर पहिले नै दर्ता;موبائل نمبر اڳ ۾ ئي داخل'})
         elif result==1:
-            return JsonResponse({'status':'ok', 'message': 'User is successfully registered'})
+            return JsonResponse({'status':'ok', 'message': 'User is successfully registered;प्रयोक्ता को सफलतापूर्वक पंजीकृत किया गया है;ব্যবহারকারী সাফল্যের সাথে নিবন্ধিত করা হয়;వినియోగదారు విజయవంతంగా రిజిస్టరు;वापरकर्ता यशस्वीरित्या नोंदणीकृत आहे;பயனர் வெற்றிகரமாக பதிவு செய்யப்பட்டுள்ளது;صارف کامیابی سے رجسٹرڈ ہے;વપરાશકર્તા સફળતાપૂર્વક રજીસ્ટર થયેલ છે;ಬಳಕೆದಾರ ಯಶಸ್ವಿಯಾಗಿ ನೋಂದಾಯಿಸಲಾಗಿದೆ;ഉപയോക്താവ് വിജയകരമായി രജിസ്റ്റർ;ਉਪਭੋਗੀ ਨੂੰ ਸਫਲਤਾਪੂਰਕ ਰਜਿਸਟਰ ਕੀਤਾ ਗਿਆ ਹੈ;प्रयोगकर्ता सफलतापूर्वक दर्ता गरिएको छ;استعمال ڪندڙ ڪاميابي داخل آهي'})
         else:
-            return JsonResponse({'status':'err', 'message': 'Server encountered unknown problem. Try again'})
+            return JsonResponse({'status':'err', 'message': 'Server encountered problem;सर्वर का सामना करना पड़ा समस्या;সার্ভার সম্মুখীন সমস্যা;సర్వర్ ఎదుర్కొన్న సమస్య;सर्व्हर आली समस्या;சர்வர் எதிர்கொண்ட சிக்கல்;سرور کا سامنا ہوا مسئلہ;સર્વર આવી સમસ્યા;ಸರ್ವರ್ ಎದುರಿಸಿದೆ ಸಮಸ್ಯೆ;സെർവർ നേരിട്ട പ്രശ്നം;ਸਰਵਰ ਆਈ ਸਮੱਸਿਆ ਨੂੰ;सामना समस्या सर्भर;سرور پيو مسئلو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
         
 def signin(request):
     if request.method=='POST':
@@ -41,23 +42,24 @@ def signin(request):
             jsonin=json.loads(request.body)
             result = services.user_signin(jsonin['phone'],jsonin['password'],request);
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Phone number is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         elif result == -2:
-            return JsonResponse({'status':'err', 'message': 'Password length is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Password is too short;पारण शब्द बहुत छोटा है;পাসওয়ার্ড অত্যন্ত ছোট;పాస్వర్డ్ చాలా చిన్నదిగా ఉంది;संकेतशब्द खूप लहान आहे;கடவுச்சொல் மிகச் சிறியது;پاس ورڈ کافی چھوٹا ہے;પાસવર્ડ ખૂબ ટૂંકો છે;ಪಾಸ್ವರ್ಡ್ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ;പാസ്വേഡ് വളരെ ചെറുതാണ്;ਪਾਸਵਰਡ ਬਹੁਤ ਛੋਟਾ ਹੈ;पासवर्ड निकै छोटो छ;پاسورڊ تمام ننڍو آهي'})
         elif result == -3:
-            return JsonResponse({'status':'err', 'message': 'The mobile number is not registered'})
+            return JsonResponse({'status':'err', 'message': 'Mobile number is not registered;मोबाइल नंबर पंजीकृत नहीं है;মোবাইল নম্বর নিবন্ধিত না হয়;మీ మైబైల్ నెంబర్ నమోదు కాలేదు;मोबाइल क्रमांक नोंदणीकृत नाही;மொபைல் எண் பதிவு இல்லை;موبائل نمبر دار نہیں ہے;મોબાઇલ નંબર રજીસ્ટર થયેલ નથી;ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ;മൊബൈൽ നമ്പർ രജിസ്റ്റർ ചെയ്തിട്ടില്ല;ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਰਜਿਸਟਰ ਕੀਤਾ ਹੈ, ਨਾ ਹੈ,;मोबाइल नम्बर दर्ता गरिएको छैन;موبائل نمبر داخل نه آهي'})
         elif result == -4:
-            return JsonResponse({'status':'err', 'message': 'User account is disabled'})
+            return JsonResponse({'status':'err', 'message': 'User account is disabled;उपयोगकर्ता का खाता अक्षम है;ব্যবহারকারী অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে;వాడుకరి ఖాతా నిలిపివేయబడింది;वापरकर्ता खाते बंद केले आहे;பயனர் கணக்கு முடக்கப்பட்டுள்ளது;صارف کے اکاؤنٹ غیر فعال ہے;વપરાશકર્તા ખાતું નિષ્ક્રિય થયેલ છે;ಬಳಕೆದಾರ ಖಾತೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ;ഉപയോക്തൃ അക്കൗണ്ട് അപ്രാപ്തമാക്കി;ਯੂਜ਼ਰ ਖਾਤੇ ਆਯੋਗ ਹੈ;प्रयोगकर्ता खाता असक्षम छ;يوزر اڪائونٽ بند ٿيل آهي'})
         elif result == -5:
-            return JsonResponse({'status':'err', 'message': 'Password is incorrect'})
+            return JsonResponse({'status':'err', 'message': 'Password is incorrect;पासवर्ड गलत है;পাসওয়ার্ড ভুল;పాస్వర్డ్ సరైనది కాదు;पासवर्ड चुकीचा आहे;தவறான கடவுச்சொல்;پاس ورڈ غلط ہے;પાસવર્ડ ખોટો છે;ಪಾಸ್ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ;പാസ്വേഡ് തെറ്റാണ്;ਪਾਸਵਰਡ ਗਲਤ ਹੈ;पासवर्ड गलत छ;پاسورڊ غلط آهي'})
         elif result == 1:
-            return JsonResponse({'status':'ok', 'message': 'Successfully logged in'})
+            return JsonResponse({'status':'ok', 'message': 'Successfully logged in;सफलतापूर्वक में लॉग इन किया;সফলভাবে লগ;విజయవంతంగా లాగిన్;यशस्वीरित्या लॉग इन;வெற்றிகரமாக வெளியேற்ற;کامیابی کے ساتھ لاگ;સફળતાપૂર્વક લૉગ ઇન;ಯಶಸ್ವಿಯಾಗಿ ಲಾಗ್;വിജയകരമായി ലോഗ്;ਸਫਲਤਾਪੂਰਕ ਲਾਗਇਨ;सफलतापूर्वक लग इन;ڪاميابي سان لاگ ان'})
         else:
-            return JsonResponse({'status':'err', 'message': 'Server encountered unknown problem. Try again'})
+            return JsonResponse({'status':'err', 'message': 'Server encountered problem;सर्वर का सामना करना पड़ा समस्या;সার্ভার সম্মুখীন সমস্যা;సర్వర్ ఎదుర్కొన్న సమస్య;सर्व्हर आली समस्या;சர்வர் எதிர்கொண்ட சிக்கல்;سرور کا سامنا ہوا مسئلہ;સર્વર આવી સમસ્યા;ಸರ್ವರ್ ಎದುರಿಸಿದೆ ಸಮಸ್ಯೆ;സെർവർ നേരിട്ട പ്രശ്നം;ਸਰਵਰ ਆਈ ਸਮੱਸਿਆ ਨੂੰ;सामना समस्या सर्भर;سرور پيو مسئلو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
+
 def verifyOTP(request):
     if request.method=='POST':
         result = 0
@@ -65,36 +67,36 @@ def verifyOTP(request):
             jsonin=json.loads(request.body)
             result = services.verifyOTP(jsonin['phone'],jsonin['otp'])
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Phone number is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         elif result == -3:
-            return JsonResponse({'status':'err', 'message': 'OTP is invalid'})
+            return JsonResponse({'status':'err', 'message': 'OTP is invalid;ओटीपी अमान्य है;OTP অবৈধ;ఒటిపి చెల్లదు;OTP अवैध आहे;சிவகாசி தவறானது;OTP غلط ہے;OTP અમાન્ય છે;OTP ಅಮಾನ್ಯವಾಗಿದೆ;OTP: അസാധുവാണ്;OTP ਗਲਤ ਹੈ;ओटिपी अमान्य छ;OTP غلط آهي'})
         elif result == -2:
-            return JsonResponse({'status':'err', 'message': 'The mobile number is not registered'})
+            return JsonResponse({'status':'err', 'message': 'Mobile number is not registered;मोबाइल नंबर पंजीकृत नहीं है;মোবাইল নম্বর নিবন্ধিত না হয়;మీ మైబైల్ నెంబర్ నమోదు కాలేదు;मोबाइल क्रमांक नोंदणीकृत नाही;மொபைல் எண் பதிவு இல்லை;موبائل نمبر دار نہیں ہے;મોબાઇલ નંબર રજીસ્ટર થયેલ નથી;ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ;മൊബൈൽ നമ്പർ രജിസ്റ്റർ ചെയ്തിട്ടില്ല;ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਰਜਿਸਟਰ ਕੀਤਾ ਹੈ, ਨਾ ਹੈ,;मोबाइल नम्बर दर्ता गरिएको छैन;موبائل نمبر داخل نه آهي'})
         elif result == -4:
-            return JsonResponse({'status':'err', 'message': 'There is no OTP to verify for this mobile phone'})
+            return JsonResponse({'status':'err', 'message': 'There is no OTP to verify for this mobile phone;इस मोबाइल फोन के लिए सत्यापित करने के लिए कोई ओटीपी है;এই মোবাইল ফোনের জন্য যাচাই করার কোন OTP তে হয়;ఈ మొబైల్ ఫోన్ కోసం తనిఖీ ఎటువంటి ఒటిపి ఉంది;या मोबाइल फोन सत्यापित करण्यासाठी नाही OTP आहे;இந்த மொபைல் போன் சரிபார்க்க எந்த சிவகாசி உள்ளது;اس موبائل فون کے لئے اس بات کی تصدیق کرنے کے لئے کوئی OTP نہیں ہے;આ મોબાઇલ ફોન માટે ચકાસવા માટે કોઈ OTP છે;ಈ ಮೊಬೈಲ್ ಫೋನ್ ಪರಿಶೀಲಿಸಲು ಯಾವುದೇ OTP ಇಲ್ಲ;ഈ മൊബൈൽ ഫോൺ സ്ഥിരീകരിക്കുന്നതിനും യാതൊരു OTP: ഇല്ല;ਇਸ ਮੋਬਾਈਲ ਫੋਨ ਦੇ ਲਈ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਕੋਈ ਵੀ OTP ਹੈ;यो मोबाइल फोन को लागि प्रमाणित गर्न कुनै ओटिपी छ;نه هن موبائل فون جي لاء تصديق ڪرڻ لاء ڪو به OTP آهي'})
         elif result == -5:
-            return JsonResponse({'status':'err', 'message': 'OTP is incorrect'})
+            return JsonResponse({'status':'err', 'message': 'OTP is incorrect;ओटीपी गलत है;OTP টি সঠিক নয়;OTP తప్పు;OTP चुकीचा आहे;OTP தவறானது;OTP غلط ہے;OTP ખોટું છે;OTP ತಪ್ಪು;OTP തെറ്റാണ്;OTP ਗਲਤ ਹੈ;ओटिपी गलत छ;OTP غلط آهي'})
         elif result == 1:
-            return JsonResponse({'status':'ok', 'message': 'OTP verified successfully'})
+            return JsonResponse({'status':'ok', 'message': 'OTP verified successfully;ओटीपी सफलतापूर्वक सत्यापित;OTP সফলভাবে যাচাই;ఒటిపి విజయవంతంగా ధృవీకరించబడింది;OTP यशस्वीरित्या सत्यापित;சிவகாசி வெற்றிகரமாக சரிபார்க்கப்பட்டது;OTP کامیابی سے تصدیق;OTP સફળતાપૂર્વક ચકાસણી;OTP ಯಶಸ್ವಿಯಾಗಿ ಪರಿಶೀಲಿಸಲಾಗಿದೆ;OTP: വിജയകരമായി പരിശോധിച്ചു;OTP ਸਫਲਤਾਪੂਰਕ ਪ੍ਰਮਾਣਿਤ;ओटिपी सफलतापूर्वक प्रमाणित;OTP ڪاميابي سان وجود ۾ آيو'})
         else:
-            return JsonResponse({'status':'err', 'message': 'Server encountered unknown problem. Try again'})
+            return JsonResponse({'status':'err', 'message': 'Server encountered problem;सर्वर का सामना करना पड़ा समस्या;সার্ভার সম্মুখীন সমস্যা;సర్వర్ ఎదుర్కొన్న సమస్య;सर्व्हर आली समस्या;சர்வர் எதிர்கொண்ட சிக்கல்;سرور کا سامنا ہوا مسئلہ;સર્વર આવી સમસ્યા;ಸರ್ವರ್ ಎದುರಿಸಿದೆ ಸಮಸ್ಯೆ;സെർവർ നേരിട്ട പ്രശ്നം;ਸਰਵਰ ਆਈ ਸਮੱਸਿਆ ਨੂੰ;सामना समस्या सर्भर;سرور پيو مسئلو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
 
 def signout(request):
     logout(request)
-    return JsonResponse({'status':'ok','message':'Signed out successfully'})
+    return JsonResponse({'status':'ok','message':'Signed out successfully;सफलतापूर्वक बाहर हस्ताक्षर किए;সফলভাবে সাইন আউট করা;విజయవంతంగా సైన్ అవుట్;यशस्वी साइन इन;வெற்றிகரமாக வெளியேறிவிட்டீர்கள்;کامیابی سے سائن آؤٹ;સફળતાપૂર્વક સાઇન આઉટ કર્યું;ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಔಟ್;വിജയകരമായി ഔട്ട് ചെയ്തു;ਸਫਲਤਾਪੂਰਕ ਬਾਹਰ ਦਸਤਖਤ;सफलतापूर्वक साइन आउट;ڪاميابي سان ٻاهر پير'})
 
 def sendOTP(request):
     if request.method == 'POST':
         jsonin = json.loads(request.body)
         result = services.sendOTP(jsonin['phone'])
         if result==1:
-            return JsonResponse({'status':'ok', 'message': 'OTP sent'})
+            return JsonResponse({'status':'ok', 'message': 'OTP sent;ओटीपी भेजा;OTP তে পাঠানো;ఒటిపి పంపిన;OTP पाठविले;சிவகாசி அனுப்பிய;OTP بھیجا;OTP મોકલવામાં;OTP ಕಳುಹಿಸಲಾಗಿದೆ;OTP: അയച്ചു;OTP ਭੇਜਿਆ;ओटिपी पठाइएको;OTP موڪليو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
 
 def changepassword(request):
     if request.method == 'POST':
@@ -103,21 +105,21 @@ def changepassword(request):
             jsonin = json.loads(request.body)
             result = services.changePassword(jsonin['phone'],jsonin['oldpassword'],jsonin['newpassword'])
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Phone number is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         elif result == -2:
-            return JsonResponse({'status':'err', 'message': 'Mobile number is not registered'})
+            return JsonResponse({'status':'err', 'message': 'Mobile number is not registered;मोबाइल नंबर पंजीकृत नहीं है;মোবাইল নম্বর নিবন্ধিত না হয়;మీ మైబైల్ నెంబర్ నమోదు కాలేదు;मोबाइल क्रमांक नोंदणीकृत नाही;மொபைல் எண் பதிவு இல்லை;موبائل نمبر دار نہیں ہے;મોબાઇલ નંબર રજીસ્ટર થયેલ નથી;ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ;മൊബൈൽ നമ്പർ രജിസ്റ്റർ ചെയ്തിട്ടില്ല;ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਰਜਿਸਟਰ ਕੀਤਾ ਹੈ, ਨਾ ਹੈ,;मोबाइल नम्बर दर्ता गरिएको छैन;موبائل نمبر داخل نه آهي'})
         elif result == -3:
-            return JsonResponse({'status':'err', 'message': 'Current password is incorrect'})
+            return JsonResponse({'status':'err', 'message': 'Current password is incorrect;मौजूदा पासवर्ड गलत है;বর্তমান পাসওয়ার্ডটি ভুল;ప్రస్తుత పాస్వర్డ్ సరైనది కాదు;चालू पासवर्ड चुकीचा आहे;நடப்பு கடவுச்சொல் தவறானது;موجودہ پاس ورڈ غلط ہے;વર્તમાન પાસવર્ડ ખોટો છે;ಪ್ರಸ್ತುತ ಪಾಸ್ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ;ഇപ്പോഴത്തെ പാസ്വേഡ് തെറ്റാണ്;ਵਰਤਮਾਨ ਪਾਸਵਰਡ ਗਲਤ ਹੈ;वर्तमान पासवर्ड गलत छ;موجوده پاس ورڊ غلط آهي'})
         elif result == -4:
-            return JsonResponse({'status':'err', 'message': 'New password is short'})
+            return JsonResponse({'status':'err', 'message': 'New password is short;नया पासवर्ड कम है;নতুন পাসওয়ার্ড ছোট;కొత్త సంకేతపదం చిన్నది;नवीन पासवर्ड लहान आहे;புதிய கடவுச்சொல் குறுகிய உள்ளது;نئے پاس ورڈ کی مختصر ہے;નવો પાસવર્ડ ટૂંકા હોય છે;ಹೊಸ ಗುಪ್ತಪದವನ್ನು ಚಿಕ್ಕದಾಗಿದೆ;പുതിയ പാസ്വേഡ് ചെറുതാണ്;ਨ੍ਯੂ ਪਾਸਵਰਡ ਛੋਟਾ ਹੈ;नयाँ पासवर्ड छोटो छ;نئون پاس ورڊ مختصر آهي'})
         elif result == 1:
-            return JsonResponse({'status':'ok', 'message': 'Successfully changed password'})
+            return JsonResponse({'status':'ok', 'message': 'Successfully changed password;सफलतापूर्वक बदल पासवर्ड;সফলভাবে পরিবর্তিত পাসওয়ার্ড;విజయవంతంగా మారిన పాస్వర్డ్ను;यशस्वीरित्या संकेतशब्द बदलला;வெற்றிகரமாக மாற்றப்பட்டது கடவுச்சொல்லை;کامیابی کے پاس ورڈ تبدیل;સફળતાપૂર્વક બદલાઈ પાસવર્ડ;ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ ಗುಪ್ತಪದವನ್ನು;പാസ്വേഡ് മാറ്റി;ਸਫਲਤਾਪੂਰਕ ਤਬਦੀਲ ਪਾਸਵਰਡ;सफलतापूर्वक परिवर्तन पासवर्ड;ڪاميابي سان تبديل پاس ورڊ'})
         else:
-            return JsonResponse({'status':'err', 'message': 'Server encountered unknown problem. Try again'})
+            return JsonResponse({'status':'err', 'message': 'Server encountered problem;सर्वर का सामना करना पड़ा समस्या;সার্ভার সম্মুখীন সমস্যা;సర్వర్ ఎదుర్కొన్న సమస్య;सर्व्हर आली समस्या;சர்வர் எதிர்கொண்ட சிக்கல்;سرور کا سامنا ہوا مسئلہ;સર્વર આવી સમસ્યા;ಸರ್ವರ್ ಎದುರಿಸಿದೆ ಸಮಸ್ಯೆ;സെർവർ നേരിട്ട പ്രശ്നം;ਸਰਵਰ ਆਈ ਸਮੱਸਿਆ ਨੂੰ;सामना समस्या सर्भर;سرور پيو مسئلو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
 
 def forgotpassword(request):
     if request.method == 'POST':
@@ -126,23 +128,23 @@ def forgotpassword(request):
             jsonin = json.loads(request.body)
             result = services.forgotPassword(jsonin['phone'],jsonin['otp'],jsonin['newpassword'])
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Phone number is invalid'})
-        elif result == -3:
-            return JsonResponse({'status':'err', 'message': 'OTP is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         elif result == -2:
-            return JsonResponse({'status':'err', 'message': 'The mobile number is not registered'})
+            return JsonResponse({'status':'err', 'message': 'Mobile number is not registered;मोबाइल नंबर पंजीकृत नहीं है;মোবাইল নম্বর নিবন্ধিত না হয়;మీ మైబైల్ నెంబర్ నమోదు కాలేదు;मोबाइल क्रमांक नोंदणीकृत नाही;மொபைல் எண் பதிவு இல்லை;موبائل نمبر دار نہیں ہے;મોબાઇલ નંબર રજીસ્ટર થયેલ નથી;ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನೋಂದಣಿಯಾಗಿಲ್ಲ;മൊബൈൽ നമ്പർ രജിസ്റ്റർ ചെയ്തിട്ടില്ല;ਮੋਬਾਈਲ ਨੰਬਰ ਦੀ ਰਜਿਸਟਰ ਕੀਤਾ ਹੈ, ਨਾ ਹੈ,;मोबाइल नम्बर दर्ता गरिएको छैन;موبائل نمبر داخل نه آهي'})
+        elif result == -3:
+            return JsonResponse({'status':'err', 'message': 'OTP is incorrect;ओटीपी गलत है;OTP টি সঠিক নয়;OTP తప్పు;OTP चुकीचा आहे;OTP தவறானது;OTP غلط ہے;OTP ખોટું છે;OTP ತಪ್ಪು;OTP തെറ്റാണ്;OTP ਗਲਤ ਹੈ;ओटिपी गलत छ;OTP غلط آهي'})
         elif result == -4:
-            return JsonResponse({'status':'err', 'message': 'There is no OTP to verify for this mobile phone'})
+            return JsonResponse({'status':'err', 'message': 'There is no OTP to verify for this mobile phone;इस मोबाइल फोन के लिए सत्यापित करने के लिए कोई ओटीपी है;এই মোবাইল ফোনের জন্য যাচাই করার কোন OTP তে হয়;ఈ మొబైల్ ఫోన్ కోసం తనిఖీ ఎటువంటి ఒటిపి ఉంది;या मोबाइल फोन सत्यापित करण्यासाठी नाही OTP आहे;இந்த மொபைல் போன் சரிபார்க்க எந்த சிவகாசி உள்ளது;اس موبائل فون کے لئے اس بات کی تصدیق کرنے کے لئے کوئی OTP نہیں ہے;આ મોબાઇલ ફોન માટે ચકાસવા માટે કોઈ OTP છે;ಈ ಮೊಬೈಲ್ ಫೋನ್ ಪರಿಶೀಲಿಸಲು ಯಾವುದೇ OTP ಇಲ್ಲ;ഈ മൊബൈൽ ഫോൺ സ്ഥിരീകരിക്കുന്നതിനും യാതൊരു OTP: ഇല്ല;ਇਸ ਮੋਬਾਈਲ ਫੋਨ ਦੇ ਲਈ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਕੋਈ ਵੀ OTP ਹੈ;यो मोबाइल फोन को लागि प्रमाणित गर्न कुनै ओटिपी छ;نه هن موبائل فون جي لاء تصديق ڪرڻ لاء ڪو به OTP آهي'})
         elif result == -5:
-            return JsonResponse({'status':'err', 'message': 'OTP is incorrect'})
+            return JsonResponse({'status':'err', 'message': 'OTP is incorrect;ओटीपी गलत है;OTP টি সঠিক নয়;OTP తప్పు;OTP चुकीचा आहे;OTP தவறானது;OTP غلط ہے;OTP ખોટું છે;OTP ತಪ್ಪು;OTP തെറ്റാണ്;OTP ਗਲਤ ਹੈ;ओटिपी गलत छ;OTP غلط آهي'})
         elif result == 1:
-            return JsonResponse({'status':'ok', 'message': 'Password changed successfully'})
+            return JsonResponse({'status':'ok', 'message': 'Successfully changed password;सफलतापूर्वक बदल पासवर्ड;সফলভাবে পরিবর্তিত পাসওয়ার্ড;విజయవంతంగా మారిన పాస్వర్డ్ను;यशस्वीरित्या संकेतशब्द बदलला;வெற்றிகரமாக மாற்றப்பட்டது கடவுச்சொல்லை;کامیابی کے پاس ورڈ تبدیل;સફળતાપૂર્વક બદલાઈ પાસવર્ડ;ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ ಗುಪ್ತಪದವನ್ನು;പാസ്വേഡ് മാറ്റി;ਸਫਲਤਾਪੂਰਕ ਤਬਦੀਲ ਪਾਸਵਰਡ;सफलतापूर्वक परिवर्तन पासवर्ड;ڪاميابي سان تبديل پاس ورڊ'})
         else:
-            return JsonResponse({'status':'err', 'message': 'Server encountered unknown problem. Try again'})
+            return JsonResponse({'status':'err', 'message': 'Server encountered problem;सर्वर का सामना करना पड़ा समस्या;সার্ভার সম্মুখীন সমস্যা;సర్వర్ ఎదుర్కొన్న సమస్య;सर्व्हर आली समस्या;சர்வர் எதிர்கொண்ட சிக்கல்;سرور کا سامنا ہوا مسئلہ;સર્વર આવી સમસ્યા;ಸರ್ವರ್ ಎದುರಿಸಿದೆ ಸಮಸ್ಯೆ;സെർവർ നേരിട്ട പ്രശ്നം;ਸਰਵਰ ਆਈ ਸਮੱਸਿਆ ਨੂੰ;सामना समस्या सर्भर;سرور پيو مسئلو'})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
 
 def profileupdate(request):
     if request.method == 'POST':
@@ -173,10 +175,10 @@ def getprofile(request):
             jsonin = json.loads(request.body)
             result = services.getProfile(jsonin)
         except Exception:
-            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Data given to server is invalid;सर्वर के लिए दिए गए डेटा अमान्य है;সার্ভার দেওয়া তথ্য অবৈধ;సర్వర్ ఇచ్చిన డేటా చెల్లదు;सर्व्हर देण्यात डेटा अवैध आहे;சர்வர் கொடுக்கப்பட்ட தரவு தவறானது;سرور کو دیا ڈیٹا غلط ہے;સર્વર આપવામાં ડેટા અમાન્ય છે;ಸರ್ವರ್ ನೀಡಿದ ಡೇಟಾ ಅಮಾನ್ಯವಾಗಿದೆ;സെർവറിലേക്ക് തന്നിരിക്കുന്ന ഡാറ്റ അസാധുവാണ്;ਸਰਵਰ ਨੂੰ ਦਿੱਤੇ ਡਾਟਾ ਗਲਤ ਹੈ;सर्भर दिइएको डाटा अमान्य छ;سرور کي ڏنو ڊيٽا غلط آهي'})
         if result == -1:
-            return JsonResponse({'status':'err', 'message': 'Phone number is invalid'})
+            return JsonResponse({'status':'err', 'message': 'Phone number is invalid;फ़ोन नंबर अमान्य है;ফোন নম্বর অবৈধ;ఫోన్ నంబర్ చెల్లదు;फोन नंबर अवैध आहे;தொலைபேசி எண் தவறானது;فون نمبر غلط ہے;ફોન નંબર અમાન્ય છે;ಫೋನ್ ಸಂಖ್ಯೆ ಅಮಾನ್ಯವಾಗಿದೆ;ഫോൺ നമ്പർ അസാധുവാണ്;ਫੋਨ ਨੰਬਰ ਗਲਤ ਹੈ;फोन नम्बर अवैध छ;فون نمبر غلط آهي'})
         else:
             return JsonResponse({'status':'ok', 'profile':result})
     else:
-        return JsonResponse({'status':'err', 'message': 'Bad Request'})
+        return JsonResponse({'status':'err', 'message': 'Bad Request;खराब अनुरोध;খারাপ অনুরোধ;తప్పుడు విన్నపం;खराब विनंती;தவறான கோரிக்கை;غلط فرمائش;ખરાબ વિનંતી;ಕೆಟ್ಟ ವಿನಂತಿ;മോശം അഭ്യർത്ഥന;ਬੁਰੀ ਗੁਜਾਰਸ਼;खराब अनुरोध;غلط درخواست'})
